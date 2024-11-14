@@ -1,4 +1,6 @@
-import { IssueStoreMaster } from '$lib/domain/issue/IssueMasterStore';
+import { container } from '$lib/inversify.config';
+import { MasterStore } from '$lib/arch/MasterStore';
+import { TYPES } from '$lib/types';
 import { loadTranslations } from '$lib/translations';
 import type { LayoutLoad } from './$types';
 
@@ -8,7 +10,8 @@ export const load: LayoutLoad = async ({ fetch }) => {
   const userLang = navigator.language;
   await loadTranslations(userLang);
 
-  await IssueStoreMaster.loadAll(fetch);
+  const masterStore = container.get<MasterStore>(TYPES.MasterStore);
+  await masterStore.loadAll(fetch);
 
   return {};
 };
