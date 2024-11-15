@@ -23,6 +23,9 @@ importers:
       inversify:
         specifier: ^6.1.4
         version: 6.1.4(reflect-metadata@0.2.2)
+      inversify-binding-decorators:
+        specifier: ^4.0.0
+        version: 4.0.0
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -1258,6 +1261,9 @@ packages:
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
+
+  inversify-binding-decorators@4.0.0:
+    resolution: {integrity: sha512-r8au/oH3vS7ttHj0RivAznwElySeRohLfg8lvOSzbrX6abf/8ik8ptk49XbzdShgrnalvl7CM6MjcskfM7MMqQ==}
 
   inversify@6.1.4:
     resolution: {integrity: sha512-PbxrZH/gTa1fpPEEGAjJQzK8tKMIp5gRg6EFNJlCtzUcycuNdmhv3uk5P8Itm/RIjgHJO16oQRLo9IHzQN51bA==}
@@ -3377,6 +3383,8 @@ snapshots:
       wrappy: 1.0.2
 
   inherits@2.0.4: {}
+
+  inversify-binding-decorators@4.0.0: {}
 
   inversify@6.1.4(reflect-metadata@0.2.2):
     dependencies:
