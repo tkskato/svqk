@@ -1,17 +1,17 @@
-import { container } from '$lib/inversify.config';
-import { MasterStore } from '$lib/arch/MasterStore';
-import { TYPES } from '$lib/types';
 import { loadTranslations } from '$lib/translations';
 import type { LayoutLoad } from './$types';
-
-export const ssr = false;
+import 'reflect-metadata';
+import { TYPES } from '$lib/arch/types';
+import { initContainer } from '$lib/arch/di/Container';
+import { LoadExecutor } from '$lib/arch/LoadExecutor';
 
 export const load: LayoutLoad = async ({ fetch }) => {
   const userLang = navigator.language;
   await loadTranslations(userLang);
 
-  const masterStore = container.get<MasterStore>(TYPES.MasterStore);
-  await masterStore.loadAll(fetch);
+  const container = initContainer();
+  const loadExecutor = container.get<LoadExecutor>(TYPES.LoadExecutor);
+  await loadExecutor.execute(fetch);
 
   return {};
 };
