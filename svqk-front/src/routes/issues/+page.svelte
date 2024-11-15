@@ -10,7 +10,7 @@
   import { t } from '$lib/translations';
   import DateUtils from '$lib/arch/util/DateUtils';
   import SortDirection from '$lib/arch/components/SortDirection.svelte';
-  import { issueStatuses } from '$lib/domain/issue/IssueMasterStore';
+  import { issueStatuses } from '$lib/domain/issue/IssueStatusMasterStore';
 
   pageStore.setTitle($t('msg.issue'));
 
