@@ -1,20 +1,24 @@
+import { readable } from 'svelte/store';
 import { provide } from 'inversify-binding-decorators';
 import { TYPES } from '$lib/arch/types';
 import { MasterStoreBase } from '$lib/arch/MasterStoreBase';
 import type { IssueStatusModel } from '$lib/arch/api/Api';
-import { readable } from 'svelte/store';
 
 type Fetch = typeof fetch;
 
 export let issueStatuses = readable([] as IssueStatusModel[]);
 
 @provide(TYPES.MasterStore)
-export class IssueStatusMasterStore extends MasterStoreBase<IssueStatusModel> {
-  override async createIndStore(fetch: Fetch) {
-    // FIXME
-    console.log('IssueStatusMasterStore.....');
+export class IssueStatusMasterStore extends MasterStoreBase<IssueStatusModel[]> {
+  constructor() { 
+    super((api) => api.issueStatuses.issueStatusesList());
+  }
 
-    await super.createStore(fetch, (api) => api.issueStatuses.issueStatusesList());
+  override async load(fetch: Fetch) {
+    // FIXME
+    console.log('executed: IssueStatusMasterStore#load');
+
+    await super.load(fetch);
     issueStatuses = this.store;
   }
 }
