@@ -7,7 +7,8 @@
   import { messageStore } from '$lib/arch/global/MessageStore';
   import { t } from '$lib/translations';
   import * as yup from 'yup';
-  import { issueStatuses, trackers } from './IssueMasterStore';
+  import { issueStatuses } from '$lib/domain/issue/IssueStatusMasterStore';
+  import { trackers } from '$lib/domain/issue/TrackerMasterStore';
 
   interface Props {
     issue: IssueModel;

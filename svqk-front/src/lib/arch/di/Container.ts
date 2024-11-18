@@ -1,7 +1,6 @@
+import "reflect-metadata";
 import { Container } from 'inversify';
 import { buildProviderModule } from 'inversify-binding-decorators';
-import { TrackerMasterStore } from '$lib/domain/issue/TrackerMasterStore';
-import { IssueStatusMasterStore } from '$lib/domain/issue/IssueStatusMasterStore';
 
 let container: Container | null = null;
 
