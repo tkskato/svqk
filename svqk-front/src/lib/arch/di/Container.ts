@@ -1,6 +1,6 @@
-import "reflect-metadata";
 import { Container } from 'inversify';
 import { buildProviderModule } from 'inversify-binding-decorators';
+import '$lib/arch/di/di.config';
 
 let container: Container | null = null;
 
