@@ -1,5 +1,5 @@
 import { provide } from 'inversify-binding-decorators';
-import { TYPES } from '$lib/arch/types';
+import { TYPES } from '$lib/arch/di/types';
 import { MasterStoreBase } from '$lib/arch/MasterStoreBase';
 import { multiInject } from 'inversify';
 

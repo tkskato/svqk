@@ -1,6 +1,6 @@
 import { readable, readonly, writable, type Writable } from 'svelte/store';
 import { provide } from 'inversify-binding-decorators';
-import { TYPES } from '$lib/arch/types';
+import { TYPES } from '$lib/arch/di/types';
 import type { Api, HttpResponse } from '$lib/arch/api/Api';
 import ApiHandler from '$lib/arch/api/ApiHandler';
 
