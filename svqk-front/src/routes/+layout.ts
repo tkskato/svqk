@@ -14,7 +14,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 
   const container = getContainer();
   const loadExecutor = container.get<LoadExecutor>(TYPES.LoadExecutor);
-  await loadExecutor.execute(fetch);
+  await loadExecutor.loadAll(fetch);
 
   return {
     issueStatuses,

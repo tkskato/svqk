@@ -1,7 +1,7 @@
-import { provide } from 'inversify-binding-decorators';
 import { TYPES } from '$lib/arch/di/types';
 import { MasterStoreBase } from '$lib/arch/MasterStoreBase';
 import { multiInject } from 'inversify';
+import { provide } from 'inversify-binding-decorators';
 
 type Fetch = typeof fetch;
 
@@ -13,7 +13,7 @@ export class LoadExecutor {
     this.masterStores = stores;
   }
 
-  async execute(fetch: Fetch) {
+  async loadAll(fetch: Fetch) {
     // FIXME
     console.log('executed: LoadExecutor#execute');
 
