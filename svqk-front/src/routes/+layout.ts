@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import type { LayoutLoad } from './$types';
 import { loadTranslations } from '$lib/translations';
 import { getContainer } from '$lib/arch/di/Container';
