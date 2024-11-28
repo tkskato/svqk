@@ -4,8 +4,8 @@ import { loadTranslations } from '$lib/translations';
 import { getContainer } from '$lib/arch/di/Container';
 import { LoadExecutor } from '$lib/arch/LoadExecutor';
 import { TYPES } from '$lib/arch/di/types';
-import { issueStatuses } from '$lib/domain/issue/IssueStatusMasterStore';
-import { trackers } from '$lib/domain/issue/TrackerMasterStore';
+import { autoProvide } from 'inversify-binding-decorators';
+import * as diEntries from '$lib/di.entries';
 
 export const ssr = false;
 
@@ -14,11 +14,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
   await loadTranslations(userLang);
 
   const container = getContainer();
+  // autoProvide(container, diEntries);
   const loadExecutor = container.get<LoadExecutor>(TYPES.LoadExecutor);
   await loadExecutor.loadAll(fetch);
-
-  return {
-    issueStatuses,
-    trackers
-  };
 };
