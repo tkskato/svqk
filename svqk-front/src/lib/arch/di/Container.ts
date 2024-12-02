@@ -1,11 +1,16 @@
 import { Container } from 'inversify';
 import { buildProviderModule } from 'inversify-binding-decorators';
 
-let container: Container | null = null;
+export class DIContainer {
+    private static instance: Container;
 
-export const getContainer = () => {
-    container = new Container();
-    container.load(buildProviderModule());
+    private constructor() {}
 
-    return container
+    public static getInstance(): Container {
+        if (!DIContainer.instance) {
+            DIContainer.instance = new Container();
+            DIContainer.instance.load(buildProviderModule());
+        }
+        return DIContainer.instance;
+    }
 }
