@@ -1,8 +1,8 @@
 import { readable } from 'svelte/store';
+import { provide } from 'inversify-binding-decorators';
 import { TYPES } from '$lib/arch/di/types';
 import type { Api, HttpResponse } from '$lib/arch/api/Api';
 import ApiHandler from '$lib/arch/api/ApiHandler';
-import { provide } from 'inversify-binding-decorators';
 
 type Fetch = typeof fetch;
 type ApiCall<T> = (api: Api<unknown>) => Promise<HttpResponse<T, unknown>>;
