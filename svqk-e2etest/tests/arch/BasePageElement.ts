@@ -46,9 +46,9 @@ export default abstract class BasePageElement {
   }
 
   protected async expectGlobalMessage(message: string) {
-    await this.run(Action.EXPECT_VISIBLE, message, () =>
-      expect(this.page.locator('#globalMessage')).toHaveText(message)
-    );
+    await this.run(Action.EXPECT_VISIBLE, message, async () => {
+      return expect(this.page.locator('#globalMessage')).toHaveText(message)
+    });
   }
 
   protected async expectTdTextExists(text: string) {
@@ -58,6 +58,7 @@ export default abstract class BasePageElement {
   }
 
   protected async expectText(selector: string, value: string) {
+    await this.page.waitForSelector(selector);
     await this.run(
       Action.EXPECT_TEXT,
       selector,
