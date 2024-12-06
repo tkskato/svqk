@@ -1,5 +1,5 @@
 {
-  "name": "generator-java-project",
+  "name": "generator-svqk-scaff",
   "version": "1.0.0",
   "description": "Scaffold for SVQK project",
   "files": [
@@ -9,21 +9,23 @@
   "keywords": [
     "yeoman-generator"
   ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "pnpm run build",
+    "start": "pnpm run prepare && pnpm yo svqk-scaff"
+  },
   "dependencies": {
     "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
-    "yeoman-test": "^1.7.0",
-    "yeoman-assert": "^3.1.1",
     "coveralls": "^3.0.7",
-    "eslint": "^6.6.0",
+    "eslint": "^9.0.0",
     "prettier": "^1.19.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.3",
     "eslint-config-prettier": "^6.6.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-config-xo": "^0.27.2",
-    "jest": "^26.1.0",
     "@types/yeoman-generator": "^5.2.11",
     "typescript": "^4.9.5",
     "ts-node": "^10.9.1"
@@ -58,10 +60,5 @@
     "plugins": [
       "prettier"
     ]
-  },
-  "scripts": {
-    "build": "tsc",
-    "prepare": "pnpm run build",
-    "start": "pnpm run prepare && pnpm yo java-project"
   }
 }
