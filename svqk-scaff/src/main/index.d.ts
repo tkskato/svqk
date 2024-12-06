@@ -9,18 +9,18 @@ type Field = {
   javaType: string;
   multiple: Boolean;
   dbType: string;
-  dbTypeSize: string;
+  dbTypeSize: number;
   id: Boolean;
   required: Boolean;
 }
 
 type TemplateData = {
-    domainPkgName: string;
-    interfacesPkgName: string;
-    entNamePascal: string;
-    entNameCamel: string;
-    entNameAllCaps: string;
-    entIdType: string;
+    domainPkgNm: string;
+    interfacesPkgNm: string;
+    entityNmPascal: string;
+    entityNmCamel: string;
+    entityNmAllCaps: string;
+    entityIdType: string;
 }
 
 declare module '**/jeg-metadata.json' {
@@ -28,4 +28,4 @@ declare module '**/jeg-metadata.json' {
     export default data;
 }
 
-export { Metadata, Field, TemplateData as EjsData };
+export { Metadata, Field, TemplateData };

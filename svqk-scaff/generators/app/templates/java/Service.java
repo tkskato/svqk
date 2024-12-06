@@ -1,4 +1,4 @@
-package <%= domainPkgName %>;
+package <%= domainPkgNm %>;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -6,18 +6,18 @@ import lombok.RequiredArgsConstructor;
 
 @ApplicationScoped
 @RequiredArgsConstructor
-public class <%= entNamePascal %>Service {
+public class <%= entityNmPascal %>Service {
 
-  private final <%= entNamePascal %>Repository <%= entNameCamel %>Repository;
+  private final <%= entityNmPascal %>Repository <%= entityNmCamel %>Repository;
 
-  public <%= entNamePascal %>Entity find(int id) {
+  public <%= entityNmPascal %>Entity find(int id) {
 
-    return <%= entNameCamel %>Repository.findById(id).orElseThrow(IllegalArgumentException::new);
+    return <%= entityNmCamel %>Repository.findById(id).orElseThrow(IllegalArgumentException::new);
   }
 
   @Transactional
-  public <%= entNamePascal %>Entity save(<%= entNamePascal %>Entity entity) {
+  public <%= entityNmPascal %>Entity save(<%= entityNmPascal %>Entity entity) {
 
-    return <%= entNameCamel %>Repository.save(entity);
+    return <%= entityNmCamel %>Repository.save(entity);
   }
 }

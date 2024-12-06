@@ -1,76 +1,76 @@
 import Generator from 'yeoman-generator';
-import { Metadata, Field, EjsData as TemplateData } from './index.d';
+import type { Metadata, Field, TemplateData } from 'main/index.d';
 
+const YO_RC_KEY_METADATA_FPATH = 'metadataFilePath';
 const YO_RC_KEY_DEST_ROOT_PATH = 'destRootPath';
-const YO_RC_KEY_JEG_METADATA_FPATH = 'jegMetadataFilePath';
 
-class MyGenerator extends Generator {
+class SvqkCodeGenerator extends Generator {
     
+    metadataFilePath: string;
     destRootPath: string;
-    jegMetadataFilePath: string;
     metadataList: Metadata[];
 
     constructor(args: string | string[], opts: Record<string, unknown>) {
         super(args, opts);
+        this.metadataFilePath = this.config.get(YO_RC_KEY_METADATA_FPATH);
         this.destRootPath = this.config.get(YO_RC_KEY_DEST_ROOT_PATH);
-        this.jegMetadataFilePath = this.config.get(YO_RC_KEY_JEG_METADATA_FPATH);
         this.metadataList = [];
     }
 
     initializing() {
         try {
-            this.metadataList = require(`${this.destinationRoot()}/${this.jegMetadataFilePath}`);
+            this.metadataList = require(`${this.destinationRoot()}/${this.metadataFilePath}`);
             
             if (!this.metadataList || this.metadataList.length === 0) {
                 throw new Error(
-                    `A meta data list on ${this.jegMetadataFilePath} is empty.`
+                    `The meta data list on ${this.metadataFilePath} is empty.`
                 );
             }
         } catch (error) {
-            this.log(`Failed to read ${this.jegMetadataFilePath}.`, error);
+            this.log(`Failed to read ${this.metadataFilePath}.`, error);
         }
     }
 
     writing() {
-        const generateConfiguration = (domainPkgName: string, className: string, fields: Field[]): TemplateData => {
-            const entNamePascal = extractEntName(className);
+        const generateTemplateData = (domainPkgNm: string, classNm: string, fields: Field[]): TemplateData => {
+            const entityNmPascal = extractEntityName(classNm);
 
             return {
-                domainPkgName: domainPkgName,
-                interfacesPkgName: domainPkgName.replace('.domain.', '.interfaces.'),
-                entNamePascal: entNamePascal,
-                 entNameCamel:
-                    entNamePascal.charAt(0).toLowerCase() + entNamePascal.slice(1),
-                entNameAllCaps: entNamePascal.toUpperCase(),
-                entIdType: fields.find(field => field.id)?.javaType??''
+                domainPkgNm: domainPkgNm,
+                interfacesPkgNm: domainPkgNm.replace('.domain.', '.interfaces.'),
+                entityNmPascal: entityNmPascal,
+                 entityNmCamel:
+                    entityNmPascal.charAt(0).toLowerCase() + entityNmPascal.slice(1),
+                entityNmAllCaps: entityNmPascal.toUpperCase(),
+                entityIdType: fields.find(field => field.id)?.javaType??''
             };
         };
         
         const outputJavaFile = (layer: string, destPkgPath: string, tmplData: TemplateData) => {
             this.fs.copyTpl(
                 this.templatePath(`java/${layer}.java`),
-                this.destinationPath(`${destPkgPath}/${tmplData.entNamePascal}${layer}.java`),
+                this.destinationPath(`${destPkgPath}/${tmplData.entityNmPascal}${layer}.java`),
                 tmplData
             );
         }
 
-        const extractEntName = (entClassName: string): string => entClassName.replace('Entity', '');
+        const extractEntityName = (entityClassNm: string): string => entityClassNm.replace('Entity', '');
         
-        const generateDestPkgPath = (destRootPath: string, pkgName: string): string => `${destRootPath}/${pkgName.replace(/\./g, '/')}`;
+        const generateDestPackagePath = (destRootPath: string, pkgNm: string): string => `${destRootPath}/${pkgNm.replace(/\./g, '/')}`;
         
         this.metadataList.forEach(({ packageName, className, fields } ) => {
-            const tmplData = generateConfiguration(packageName, className, fields);
+            const tmplData = generateTemplateData(packageName, className, fields);
             
             // Generate files for domain package
             ['Repository', 'Service'].forEach(layer => {
-                const destPkgPath = generateDestPkgPath(this.destRootPath, tmplData.domainPkgName);
+                const destPkgPath = generateDestPackagePath(this.destRootPath, tmplData.domainPkgNm);
                 outputJavaFile(layer, destPkgPath, tmplData);
             });
             
             // Generate files for interfaces package
-            const destPkgPath = generateDestPkgPath(
+            const destPkgPath = generateDestPackagePath(
                 this.destRootPath,
-                tmplData.interfacesPkgName
+                tmplData.interfacesPkgNm
             );
             outputJavaFile('Controller', destPkgPath, tmplData);
         });
@@ -81,4 +81,4 @@ class MyGenerator extends Generator {
     }
 }
 
-export default MyGenerator;
+export default SvqkCodeGenerator;
